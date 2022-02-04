@@ -1,23 +1,31 @@
 <html>
 <head>
 	<title>Wayback Machine</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
 </head>
 
 <body>
-	<form method="get" action="./machine.php">
-		<label for="webaddress"> Website Address </label>
-		<input id="webaddress" name="address">
+	<form method="post" action="./authentication.php">
+		<label for="username"> Username </label>
+		<input id="username" name="username">
 		
-		<label for="webtitle"> Website Title </label>
-		<input id="webtitle" name="title"><br>
-		<input type="radio" id="view" name="mode" value="view">
-	    <label for="view">view</label><br>
-		<input type="radio" id="download" name="mode" value="download">
-	    <label for="download">download</label><br>
-		<input type="radio" id="add" name="mode" value="add">
-	    <label for="add">add</label><br>
-		<input type="submit" value="Submit">
+		<label for="password"> Password </label>
+		<input id="password" name="password" type="password">
+		
+		<button> Sign in </button>
+	</form>
+	
+	<form method="post" action="./accountCreation.php">
+		<label for="username"> Username </label>
+		<input id="username" name="username">
+		
+		<label for="password"> Password </label>
+		<input id="password" name="password" type="password">
+		
+		<label for="repeatPassword"> Repeat Password </label>
+		<input id="repeatPassword" name="repeatPassword" type="password">
+		
+		<button> Sign up </button>
 	</form>
 </body>
 </html>
