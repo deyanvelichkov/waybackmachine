@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Wayback Machine</title>
+	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+	<form method="get" action="./machine.php">
+		<label for="webaddress"> Website Address </label>
+		<input id="webaddress" name="address">
+		
+		<label for="webtitle"> Website Title </label>
+		<input id="webtitle" name="title"><br>
+		
+		<input type="radio" id="view" name="mode" value="view">
+	    <label for="view">view</label><br>
+	
+		<input type="radio" id="download" name="mode" value="download">
+	    <label for="download">download</label><br>
+	
+		<input type="radio" id="add" name="mode" value="add">
+	    <label for="add">add</label><br>
+	
+		<input type="submit" value="Submit">
+	</form>
+	
+	<form method="get" action="./search.php">
+		<label for="address"> Address </label>
+		<input id="address" name="searchAddress">
+		
+		<label for="title"> Title </label>
+		<input id="title" name="searchTitle">
+		
+		<input type="submit" value="Search">
+	</form>
+</body>
+</html>
