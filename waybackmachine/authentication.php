@@ -11,7 +11,7 @@
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 
-	$sqlSelect = "SELECT AccountID, PasswordHash, Role FROM `users` WHERE Username = \"$username\"";
+	$sqlSelect = "SELECT PasswordHash, Role FROM `users` WHERE Username = \"$username\"";
 	
 	$querySelect = $conn->query($sqlSelect) or die("failed!");
 	
@@ -22,7 +22,6 @@
 	{
 		$_SESSION['username'] = $username;
 		$_SESSION['role'] = $databasedata['Role'];
-		$_SESSION['accountid'] = $databasedata['AccountID'];
 		
 		include 'mainPage.html';
 	}

@@ -16,7 +16,6 @@
 	$title = $_GET['title'];
 	$mode = $_GET['mode'];
 	$date = $_GET['date'];
-	$saved_location = "./saved/\"$title\".html";
 	$saved_location_1 = "./saved/$title.html";
 
 	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');

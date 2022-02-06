@@ -13,7 +13,7 @@
 		<label for="webtitle"> Website Title </label>
 		<input id="webtitle" name="title"><br>
 		
-		<label for="webtitle"> Date </label>
+		<label for="date"> Date </label>
 		<input type="date" id="date" name="date"><br>
 
 		<input type="radio" id="view" name="mode" value="view">
@@ -27,15 +27,20 @@
 	
 		<input type="submit" value="Submit">
 	</form>
-	
-	<form method="get" action="./search.php">
+		<form method="get" action="./search.php">
 		<label for="address"> Address </label>
 		<input id="address" name="searchAddress">
 		
 		<label for="title"> Title </label>
 		<input id="title" name="searchTitle">
 		
+		<label for="date"> Date </label>
+		<input id="date" name="searchDate" type="number">
+		
 		<input type="submit" value="Search">
+	</form>
+	<form action="logOut.php" method="post">
+		<input type="submit" value="Log out"/>
 	</form>
 </body>
 </html>
