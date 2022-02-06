@@ -15,98 +15,87 @@
 	$address = $_GET['address'];
 	$title = $_GET['title'];
 	$mode = $_GET['mode'];
+	$date = $_GET['date'];
 	$saved_location = "./saved/\"$title\".html";
 	$saved_location_1 = "./saved/$title.html";
-	//echo 'Website at <b>'.$address.'</b> has been archived!<br>';
-	//echo '<br>';
 
 	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
 	
-	/*INSERT INTO `websitedata` (`ID`, `Address`, `WebsiteTitle`, `ArchiveAddress`, `LastUpdated`, `UpdateTime`, `AccountID`) 
-						 VALUES (NULL, 'abc', 'ABC', '', current_timestamp(), NULL, NULL)*/
-	if($_SESSION['role'] == 'admin')
-		$sqlSelect = "SELECT * FROM `websitedata`";
-	else
-		$sqlSelect = "SELECT * FROM `websitedata` WHERE `AccountID`=".$_SESSION['accountid'];
-		$sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`) VALUES (\'$address\',\'$title\',\'$saved_location_1\')";
-
-	//when adding gets done, and the query is edited to add all the data, this will add the info to the database
-	//$queryInsertInto = $conn->query($sqlInsertInto) or die("failed!");
-	$querySelect = $conn->query($sqlSelect) or die("failed!");
-	
-	$databasedata = $querySelect->fetchAll(PDO::FETCH_ASSOC);
-	
+	if ($date == "") {
+		$sqlSelect_find_to_process_count = "SELECT COUNT(*) FROM `websitedata` WHERE `Address`=\"$address\" OR `WebsiteTitle`=\"$title\" ORDER BY `LastUpdated` DESC LIMIT 1";
+		$sqlSelect_find_to_process = "SELECT * FROM `websitedata` WHERE `Address`=\"$address\" OR `WebsiteTitle`=\"$title\" ORDER BY `LastUpdated` DESC LIMIT 1";
+	} else 
+{		$sqlSelect_find_to_process_count = "SELECT COUNT(*) FROM `websitedata` WHERE (`Address`=\"$address\" OR `WebsiteTitle`=\"$title\") AND `LastUpdated` LIKE \"%$date%\" ";
+		$sqlSelect_find_to_process = "SELECT * FROM `websitedata` WHERE (`Address`=\"$address\" OR `WebsiteTitle`=\"$title\") AND `LastUpdated` LIKE \"%$date%\" ";
+	}
 	if ($mode=="add")
 	{
-		$cmd = "wget -q -O \"$saved_location\" \"$address\"";
+		$cmd = "wget -q -O \"$saved_location_1\" \"$address\"";
 		exec($cmd);
-		
+		$sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`) VALUES ('".$address."','" .$title."','" .$saved_location_1."')";
 		$queryInsertInto = $conn->query($sqlInsertInto) or die("failed!");
 	}
-	if ($mode=="download")
+	else if ($mode=="download")
 	{
-		if($_SESSION['role'] == 'admin')
-			$sqlSelect_find_to_download = "SELECT * FROM `websitedata` WHERE `Address`=\"$address\" OR `WebsiteTitle`=\"$title\" ORDER BY `LastUpdated` DESC LIMIT 1";
-		else
-			$sqlSelect_find_to_download = "SELECT * FROM `websitedata` WHERE (`Address`=\"$address\" OR `WebsiteTitle`=\"$title\") AND `AccountID`=".$_SESSION['accountid']." ORDER BY `LastUpdated` DESC LIMIT 1";
-	
-		$querySelect_download = $conn->query($sqlSelect_find_to_download) or die("failed!");
-		$databasedata_download = $querySelect_download->fetchAll(PDO::FETCH_ASSOC);
-		
-		//you can use fetch, cause it's 1 result, and fetch gives you one each time, fetchAll - all of them, your choice
-		
-		echo '<table>';
-		echo 
-		'<tr>
-			<th>ID</th>
-			<th>Website address</th>
-			<th>Website title</th>
-			<th>Time last updated</th>
-			<th>Account ID</th>
-		</tr>';
-		
-		foreach ($databasedata_download as $row => $data)
-		{
-			echo 
-			'<tr>
-				<td>'.$data['ID'].'</td>
-				<td>'.$data['Address'].'</td>
-				<td>'.$data['WebsiteTitle'].'</td>
-				<td>'.$data['LastUpdated'].'</td>
-				<td>'.$data['AccountID'].'</td>
-			</tr>';
+		// echo($conn->query($sqlSelect_find_to_process_count));
+		if ($res = $conn->query($sqlSelect_find_to_process_count)) {
+
+		    /* Check the number of rows that match the SELECT statement */
+		    if ($res->fetchColumn() > 0) {
+
+		        /* Issue the real SELECT statement and work with the results */
+
+				$querySelect_find_to_download = $conn->query($sqlSelect_find_to_process) or die("failed!");
+				$to_be_downloaded = $querySelect_find_to_download->fetch(PDO::FETCH_ASSOC);
+
+				$file_location = $to_be_downloaded['ArchiveAddress'];
+				$file_name = substr($file_location, strpos($file_location, "saved/") + 6);
+		        if (file_exists($file_location)) {
+
+		            header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
+		            header("Cache-Control: public"); // needed for internet explorer
+		            header("Content-Type: text/html");
+		            header("Content-Transfer-Encoding: Binary");
+		            header("Content-Length:".filesize($file_location));
+		            header("Content-Disposition: attachment; filename=$file_name");
+		            readfile($file_location);
+		            die();        
+		        } else {
+		            die("Error: File not found.");
+		        } 
+		    }
+		    /* No rows matched -- do something else */
+		    else {
+		        print "No rows matched the query.";
+		    }
 		}
-		
-		echo '</table>';
 	}
-	else 
-	{
-		
-		echo '<table>';
-		echo 
-		'<tr>
-			<th>ID</th>
-			<th>Website address</th>
-			<th>Website title</th>
-			<th>Time last updated</th>
-			<th>Account ID</th>
-		</tr>';
-		
-		foreach ($databasedata as $row => $data)
-		{
-			echo 
-			'<tr>
-				<td>'.$data['ID'].'</td>
-				<td>'.$data['Address'].'</td>
-				<td>'.$data['WebsiteTitle'].'</td>
-				<td>'.$data['LastUpdated'].'</td>
-				<td>'.$data['AccountID'].'</td>
-			</tr>';
-		}
-		
-		echo '</table>';
+	else if ($mode == "view") {
+
+		if ($res = $conn->query($sqlSelect_find_to_process_count)) {
+
+		    /* Check the number of rows that match the SELECT statement */
+		    if ($res->fetchColumn() > 0) {
+
+		        /* Issue the real SELECT statement and work with the results */
+
+				$querySelect_find_to_preview = $conn->query($sqlSelect_find_to_process) or die("failed!");
+				$to_be_previewed = $querySelect_find_to_preview->fetch(PDO::FETCH_ASSOC);
+
+				$file_location = $to_be_previewed['ArchiveAddress'];
+				$url_name_to_be_proc = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+				$url_name = substr($url_name_to_be_proc, 0 ,strpos($url_name_to_be_proc, "machine.php"))."$file_location";
+				header("Location: $url_name");
+		        } else {
+		            die("Error: File not found.");
+		        } 
+		    }
+		    /* No rows matched -- do something else */
+		    else {
+		        print "No rows matched the query.";
+		    }
+		die();
 	}
-	
 	echo 
 	"<button><a href='./mainPage.html'>Return to menu</a></button>";
 ?>
