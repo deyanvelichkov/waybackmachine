@@ -14,13 +14,14 @@
 
 	$searchAddress = $_GET['searchAddress'];
 	$searchTitle = $_GET['searchTitle'];
+	$searchDate = $_GET['searchDate'];
 	
 	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
 	
 	if($_SESSION['role'] == 'admin')
-		$sqlSearch = "SELECT * FROM `websitedata` WHERE `Address`=\"$searchAddress\" AND `WebsiteTitle`=\"$searchTitle\"";
+		$sqlSearch = "SELECT * FROM `websitedata` WHERE `Address`=\"$searchAddress\" AND `WebsiteTitle`=\"$searchTitle\" AND UNIX_TIMESTAMP(LastUpdated)=\"$searchDate\"";
 	else
-		$sqlSearch = "SELECT * FROM `websitedata` WHERE `Address`=\"$searchAddress\" AND `WebsiteTitle`=\"$searchTitle\" AND `AccountID`=".$_SESSION['accountid'];
+		$sqlSearch = "SELECT * FROM `websitedata` WHERE `Address`=\"$searchAddress\" AND `WebsiteTitle`=\"$searchTitle\" AND UNIX_TIMESTAMP(LastUpdated)=\"$searchDate\" AND (`Username`='".$_SESSION['username']."' OR `Username`='')";
 	$querySearch = $conn->query($sqlSearch) or die("failed!");
 	$databasedataSearch = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 	
@@ -39,7 +40,9 @@
 		<th>Website address</th>
 		<th>Website title</th>
 		<th>Time last updated</th>
-		<th>Account ID</th>
+		<th>Username</th>
+		<th>View</th>
+		<th>Download</th>
 	</tr>';
 	
 	foreach ($databasedataSearch as $row => $data)
@@ -50,7 +53,9 @@
 			<td>'.$data['Address'].'</td>
 			<td>'.$data['WebsiteTitle'].'</td>
 			<td>'.$data['LastUpdated'].'</td>
-			<td>'.$data['AccountID'].'</td>
+			<td>'.$data['Username'].'</td>
+			<td><button><a href=\"http://localhost/waybackmachine/waybackmachine/?adress='.$data["Address"].'&name='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode="view"\">View</a></button></td>
+			<td><button><a href=\"http://localhost/waybackmachine/waybackmachine/?adress='.$data["Address"].'&name='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode="download"\">Download</a></button></td>
 		</tr>';
 	}
 	echo '</table>';
