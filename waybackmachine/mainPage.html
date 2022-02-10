@@ -6,39 +6,8 @@
 </head>
 
 <body>
-	<form method="get" action="./machine.php">
-		<label for="webaddress"> Website Address </label>
-		<input id="webaddress" name="address">
-		
-		<label for="webtitle"> Website Title </label>
-		<input id="webtitle" name="title"><br>
-		
-		<label for="date"> Date </label>
-		<input type="date" id="date" name="date"><br>
-
-		<input type="radio" id="view" name="mode" value="view">
-	    <label for="view">view</label><br>
-	
-		<input type="radio" id="download" name="mode" value="download">
-	    <label for="download">download</label><br>
-	
-		<input type="radio" id="add" name="mode" value="add">
-	    <label for="add">add</label><br>
-	
-		<input type="submit" value="Submit">
-	</form>
-		<form method="get" action="./search.php">
-		<label for="address"> Address </label>
-		<input id="address" name="searchAddress">
-		
-		<label for="title"> Title </label>
-		<input id="title" name="searchTitle">
-		
-		<label for="date"> Date </label>
-		<input id="date" name="searchDate" type="number">
-		
-		<input type="submit" value="Search">
-	</form>
+	<a href = "/waybackmachine/waybackmachine/search.html"> Search! </a> <br>
+	<a href = "/waybackmachine/waybackmachine/addwebsite.html"> Add a website to the archive</a>
 	<form action="logOut.php" method="post">
 		<input type="submit" value="Log out"/>
 	</form>

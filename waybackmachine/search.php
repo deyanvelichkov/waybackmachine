@@ -15,13 +15,35 @@
 	$searchAddress = $_GET['searchAddress'];
 	$searchTitle = $_GET['searchTitle'];
 	$searchDate = $_GET['searchDate'];
-	
+	$searchRange = $_GET['searchRange'];
+	$sqlSearch = "SELECT * FROM `websitedata` WHERE ";
+	$prev = False;
+	if ($searchAddress != "") {
+		$sqlSearch .= "`Address`=\"$searchAddress\"";
+		$prev = True;
+	}
+	if ($searchTitle != "") {
+		if ($prev) {
+			$sqlSearch .= " AND ";
+		}
+		$sqlSearch .= "`WebsiteTitle`=\"$searchTitle\"";
+		$prev = True;
+	}
+	if ($searchDate != "") {
+		if ($prev) {
+			$sqlSearch .= " AND ";
+		}
+		$sqlSearch .= "LastUpdated LIKE\"%$searchDate%\"";
+		$prev = True;
+	}
+	if ($sqlSearch == "SELECT * FROM `websitedata` WHERE ") {
+		die("CANT SEARCH WITHOUT ADDING SOME INFO");
+	}
+	if ($searchRange == "local") {
+		$sqlSearch .=  "AND `Username`='".$_SESSION['username']."'";
+	}
+	echo($sqlSearch);
 	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
-	
-	if($_SESSION['role'] == 'admin')
-		$sqlSearch = "SELECT * FROM `websitedata` WHERE `Address`=\"$searchAddress\" AND `WebsiteTitle`=\"$searchTitle\" AND UNIX_TIMESTAMP(LastUpdated)=\"$searchDate\"";
-	else
-		$sqlSearch = "SELECT * FROM `websitedata` WHERE `Address`=\"$searchAddress\" AND `WebsiteTitle`=\"$searchTitle\" AND UNIX_TIMESTAMP(LastUpdated)=\"$searchDate\" AND (`Username`='".$_SESSION['username']."' OR `Username`='')";
 	$querySearch = $conn->query($sqlSearch) or die("failed!");
 	$databasedataSearch = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 	
@@ -54,8 +76,8 @@
 			<td>'.$data['WebsiteTitle'].'</td>
 			<td>'.$data['LastUpdated'].'</td>
 			<td>'.$data['Username'].'</td>
-			<td><button><a href=\"http://localhost/waybackmachine/waybackmachine/?adress='.$data["Address"].'&name='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode="view"\">View</a></button></td>
-			<td><button><a href=\"http://localhost/waybackmachine/waybackmachine/?adress='.$data["Address"].'&name='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode="download"\">Download</a></button></td>
+			<td><button><a href="/waybackmachine/waybackmachine/machine.php?address='.$data["Address"].'&title='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode=view" >View</a></button></td>
+			<td><button><a href="/waybackmachine/waybackmachine/machine.php?address='.$data["Address"].'&title='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode=download" >Download</a></button></td>
 		</tr>';
 	}
 	echo '</table>';

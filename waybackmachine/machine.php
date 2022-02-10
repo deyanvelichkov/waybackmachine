@@ -16,7 +16,12 @@
 	$title = $_GET['title'];
 	$mode = $_GET['mode'];
 	$date = $_GET['date'];
-	$saved_location_1 = "./saved/$title.html";
+	$date = $_GET['date'];
+	if($title != "")
+	{
+		$saved_location_1 = "./saved/$title.html";
+	}
+	else $saved_location_1 = "./saved/$address.html";
 
 	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
 	
@@ -28,26 +33,22 @@
 		$sqlSelect_find_to_process = "SELECT * FROM `websitedata` WHERE (`Address`=\"$address\" OR `WebsiteTitle`=\"$title\") AND `LastUpdated` LIKE \"%$date%\" ";
 	}
 	
-	
-	function add()
-	{
-		$cmd = "wget -q -O \"$saved_location_1\" \"$address\"";
-		exec($cmd);
-		$sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`) VALUES ('".$address."','" .$title."','" .$saved_location_1."')";
-		$queryInsertInto = $conn->query($sqlInsertInto) or die("failed!");
-	}
-	
-	if(argv[1] == "add")
-	{
-		add();
-	}
+	// if($argv[1] == "add")
+	// {
+	// 	add();
+	// }
 	
 	if ($mode=="add")
 	{
-		add();
+		$cmd = "wget -q -O \"$saved_location_1\" \"$address\"";
+		exec($cmd);
+		// uncomment when using usernames!!!!!
+		// $sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`, `Username`) VALUES ('".$address."','" .$title."','" .$saved_location_1."','" .$_SESSION['username']."')";
+		$sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`) VALUES ('".$address."','" .$title."','" .$saved_location_1."')";
+		$queryInsertInto = $conn->query($sqlInsertInto) or die("failed!");
 		//$time_between_adds = $_GET['timebetweenadds']; //КОЛЕГА, ТУК МИСЛЯ СИ ТИ
-		$command = 'schtasks /Create /SC MINUTE /MO '.$time_between_adds.' /TN "$title'.'Schedule'.'" /TR "./update.bat"'
-		system($command);
+		//$command = 'schtasks /Create /SC MINUTE /MO '.$time_between_adds.' /TN "$title'.'Schedule'.'" /TR "./update.bat"';
+		//system($command);
 	}
 	else if ($mode=="download")
 	{

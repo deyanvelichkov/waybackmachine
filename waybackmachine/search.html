@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>Wayback Machine</title>
+	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+	<a href = "/waybackmachine/waybackmachine/search.html"> Search! </a> <br>
+	<a href = "/waybackmachine/waybackmachine/addwebsite.html"> Add a website to the archive</a>
+	</form>
+		<form method="get" action="./search.php">
+		<label for="address"> Address </label>
+		<input id="address" name="searchAddress">
+		
+		<label for="title"> Title </label>
+		<input id="title" name="searchTitle">
+		
+		<label for="date"> Date </label>
+		<input id="date" name="searchDate" type="date"><br>
+
+		<input type="radio" id="favorites" name="searchRange" value="favorites">
+	    <label for="download">Favorites</label><br>
+	
+		<input type="radio" id="global" name="searchRange" value="global">
+	    <label for="add">Global</label><br>
+		
+		<input type="submit" value="Search">
+		<a href = "/waybackmachine/waybackmachine/mainPage.html"> Main Page</a>
+	</form>
+	<form action="logOut.php" method="post">
+		<input type="submit" value="Log out"/>
+	</form>
+</body>
+</html>
