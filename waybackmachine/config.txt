@@ -1,0 +1,18 @@
+<?php
+
+class Config {
+  $SITE_FN = 81806; //can be used bellow
+  $SITE_CREATOR = "Kostadin Pekov and Deyan Velichkov";
+  $SITE_ADMIN_EMAIL = "your@email.com";
+  $SITE_INFO = "This project was created during 2021/22 year, on Web Technologies, Sofia University, FMI, lead by: 
+Name of Instructor, assistant: Name-Of-Assistant";
+
+  $SITE_URL="http://localhost/waybackmachine/waybackmachine/index.html";
+  $ROOT_FOLDER="c:\xampp\htdocs\waybackmachine/waybackmachine";
+  $DB_USER="root";
+  $DB_PASS="";
+  $DB_NAME="waybackmachine";
+  $SITE_DESCRIPTION="";
+  $PROJECT_REQ="...(from documentation)";
+}
+?>
