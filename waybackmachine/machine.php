@@ -1,6 +1,6 @@
 <?php
 	session_start();
-
+	error_reporting(E_ALL ^ E_WARNING);
 	echo 
 	"
 	<link rel='stylesheet' href='./styles.css' type='text/css'>
@@ -15,7 +15,6 @@
 	$address = $_GET['address'];
 	$title = $_GET['title'];
 	$mode = $_GET['mode'];
-	$date = $_GET['date'];
 	$date = $_GET['date'];
 	if($title != "")
 	{

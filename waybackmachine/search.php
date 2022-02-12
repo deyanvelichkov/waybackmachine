@@ -42,7 +42,7 @@
 	if ($searchRange == "local") {
 		$sqlSearch .=  "AND `Username`='".$_SESSION['username']."'";
 	}
-	echo($sqlSearch);
+
 	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
 	$querySearch = $conn->query($sqlSearch) or die("failed!");
 	$databasedataSearch = $querySearch->fetchAll(PDO::FETCH_ASSOC);
