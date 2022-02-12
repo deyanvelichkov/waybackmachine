@@ -2,7 +2,7 @@
 
 	echo
 	"
-	<link rel='icon' type'image/x-icon' href='./img/favicon.ico'>
+	<link rel='icon' type'image/x-icon' href='./favicon.ico'>
 	";
 
 	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');

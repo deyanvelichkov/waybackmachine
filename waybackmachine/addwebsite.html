@@ -1,28 +1,48 @@
 <html>
 <head>
 	<title>Wayback Machine</title>
-	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="./favicon.ico">
 	<link rel="stylesheet" href="addwebsite.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <body>
-	<a href = "/waybackmachine/waybackmachine/search.html"> Search! </a> <br>
-	<a href = "/waybackmachine/waybackmachine/addwebsite.html"> Add a website to the archive</a>
+<div class="form">
+	<div class="menu">
+	<button onclick="window.location.href='/waybackmachine/waybackmachine/search.html';">
+	Search!
+	</button>
+	<button onclick="window.location.href='/waybackmachine/waybackmachine/addwebsite.html';">
+	Add a website to the archive
+	</button>
+	</div>
+	
 	<form method="get" action="./machine.php">
+	<div>
 		<label for="webaddress"> Website Address </label>
 		<input id="webaddress" name="address">
-		
+	</div>
+	<div>
 		<label for="webtitle"> Website Title </label>
 		<input id="webtitle" name="title"><br>
-	
+	</div>
 		<input type="radio" id="add" name="mode" value="add" checked="checked">
 	
-		<input type="submit" value="Submit">
-		<a href = "/waybackmachine/waybackmachine/mainPage.html"> Main Page</a>
+		<input type="submit" value="Submit" class="buttonInput">
+		
+		
 	</form>
+	
+	<div class="menu">
+		<button onclick="window.location.href='/waybackmachine/waybackmachine/mainPage.html';">
+		Main Page
+		</button>
+	
 	<form action="logOut.php" method="post">
-		<input type="submit" value="Log out"/>
+		<input type="submit" value="Log out" class="buttonInput"/>
 	</form>
+	</div>
+</div>
 </body>
 </html>

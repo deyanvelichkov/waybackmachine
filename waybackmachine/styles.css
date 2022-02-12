@@ -1,3 +1,9 @@
 a {text-decoration:none; color:black;}
 td {border: 1px solid black; padding: 3px;}
 th {border: 1px solid black; padding: 3px; background-color: gray;}
+body {font-size: 18px; text-align:center; padding: 128px; font-weight:bold;}
+button, input, label {margin: 3px; font-size: 18px;}
+input, label {font-size: 18px;}
+button:hover, .buttonInput:hover {background-color: deepskyblue;}
+.form {background-color: orange; padding:16px 64px; width:60%; margin:auto; border-style: solid;}
+.menu{padding:32px 0px;}

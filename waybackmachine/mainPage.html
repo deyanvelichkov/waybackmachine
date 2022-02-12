@@ -1,15 +1,22 @@
 <html>
 <head>
 	<title>Wayback Machine</title>
-	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="./favicon.ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
-	<a href = "/waybackmachine/waybackmachine/search.html"> Search! </a> <br>
-	<a href = "/waybackmachine/waybackmachine/addwebsite.html"> Add a website to the archive</a>
+<div class="form">
+	<button onclick="window.location.href='/waybackmachine/waybackmachine/search.html';">
+	Search!
+	</button>
+	<button onclick="window.location.href='/waybackmachine/waybackmachine/addwebsite.html';">
+	Add a website to the archive
+	</button>
 	<form action="logOut.php" method="post">
-		<input type="submit" value="Log out"/>
+		<input type="submit" value="Log out" class="buttonInput"/>
 	</form>
+</div>
 </body>
 </html>

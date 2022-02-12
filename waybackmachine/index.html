@@ -1,31 +1,40 @@
 <html>
 <head>
 	<title>Wayback Machine</title>
-	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="./favicon.ico">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
+<div class="form">
 	<form method="post" action="./authentication.php">
+	<div>
 		<label for="username"> Username </label>
 		<input id="username" name="username">
-		
+	</div>
+	<div>	
 		<label for="password"> Password </label>
 		<input id="password" name="password" type="password">
+	</div>
 		
 		<button> Sign in </button>
 	</form>
 	
 	<form method="post" action="./accountCreation.php">
+	<div>
 		<label for="username"> Username </label>
 		<input id="username" name="username">
-		
+	</div>
+	<div>	
 		<label for="password"> Password </label>
 		<input id="password" name="password" type="password">
-		
+	</div>
+	<div>
 		<label for="repeatPassword"> Repeat Password </label>
 		<input id="repeatPassword" name="repeatPassword" type="password">
-		
+	</div>
 		<button> Sign up </button>
 	</form>
+</div>
 </body>
 </html>
