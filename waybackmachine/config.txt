@@ -3,7 +3,7 @@
 class Config {
   $SITE_FN = 81806; //can be used bellow
   $SITE_CREATOR = "Kostadin Pekov and Deyan Velichkov";
-  $SITE_ADMIN_EMAIL = "your@email.com";
+  $SITE_ADMIN_EMAIL = "deyan.velichkov@gmail.com";
   $SITE_INFO = "This project was created during 2021/22 year, on Web Technologies, Sofia University, FMI, lead by: 
 Name of Instructor, assistant: Name-Of-Assistant";
 
@@ -12,7 +12,7 @@ Name of Instructor, assistant: Name-Of-Assistant";
   $DB_USER="root";
   $DB_PASS="";
   $DB_NAME="waybackmachine";
-  $SITE_DESCRIPTION="";
+  $SITE_DESCRIPTION="A site with similar functionality to https://archive.org";
   $PROJECT_REQ="...(from documentation)";
 }
 ?>
