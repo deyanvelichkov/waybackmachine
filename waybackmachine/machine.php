@@ -42,8 +42,8 @@
 		$cmd = "wget -q -O \"$saved_location_1\" \"$address\"";
 		exec($cmd);
 		// uncomment when using usernames!!!!!
-		// $sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`, `Username`) VALUES ('".$address."','" .$title."','" .$saved_location_1."','" .$_SESSION['username']."')";
-		$sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`) VALUES ('".$address."','" .$title."','" .$saved_location_1."')";
+		$sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`, `Username`) VALUES ('".$address."','" .$title."','" .$saved_location_1."','" .$_SESSION['username']."')";
+		//$sqlInsertInto = "INSERT INTO `websitedata` (`Address`, `WebsiteTitle`, `ArchiveAddress`) VALUES ('".$address."','" .$title."','" .$saved_location_1."')";
 		$queryInsertInto = $conn->query($sqlInsertInto) or die("failed!");
 		//$time_between_adds = $_GET['timebetweenadds']; //КОЛЕГА, ТУК МИСЛЯ СИ ТИ
 		//$command = 'schtasks /Create /SC MINUTE /MO '.$time_between_adds.' /TN "$title'.'Schedule'.'" /TR "./update.bat"';
