@@ -1,0 +1,6 @@
+# HSTS 1.0 Known Hosts database for GNU Wget.
+# Edit at your own risk.
+# <hostname>	<port>	<incl. subdomains>	<created>	<max-age>
+bcrypt.online	0	1	1644749337	31536000
+youtube.com	0	1	1644712636	31536000
+www.youtube.com	0	0	1644754282	31536000

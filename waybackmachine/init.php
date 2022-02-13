@@ -15,10 +15,7 @@ catch (PDOException $e) {
     die("DB ERROR: " . $e->getMessage());
 }
 
-$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 $sql = "CREATE TABLE `websitedata` (
   `ID` int(11) NOT NULL,
@@ -41,9 +38,9 @@ $sql = "CREATE TABLE `users` (
 $conn->query($sql) or die("failed!");
 
 $sql = "INSERT INTO `users` (`Username`, `PasswordHash`, `Role`) VALUES
-('admin', '$2y$10$A9xaC/W0S7Zsa3W2CEyPOePbOcgOAe4wYa3jBkhoYkKZ4vW3/GoBS', 'admin'),
-('name', '$2y$10$IBfXKhejNuQcOJ.2C8iVyeHk3o6AWo.S0v6wRW/zwbFq4Ma2I6Uaq', 'user'),
-('username', '$2y$10$EwxAG87WFF3ameA8WflD6efZ1rJe68FBTq4yo1QdMZ8tounRs77se', 'user');";
+('admin', '".password_hash('admin',PASSWORD_DEFAULT)."', 'admin'),
+('name', '".password_hash('qwerty',PASSWORD_DEFAULT)."', 'user'),
+('username', '".password_hash('password',PASSWORD_DEFAULT)."', 'user');";
 $conn->query($sql) or die("failed!");
 
 $sql = "ALTER TABLE `users`

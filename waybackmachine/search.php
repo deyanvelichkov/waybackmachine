@@ -1,9 +1,10 @@
 <?php
 	session_start();
+	error_reporting(E_ALL ^ E_WARNING);
 	
 	echo 
 	"
-	<link rel='stylesheet' href='./styles.css' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='./styles.css'>
 	<!--<script src='script.js'></script>-->
 	";
 
@@ -39,7 +40,7 @@
 	if ($sqlSearch == "SELECT * FROM `websitedata` WHERE ") {
 		die("CANT SEARCH WITHOUT ADDING SOME INFO");
 	}
-	if ($searchRange == "local") {
+	if ($searchRange == "favorites") {
 		$sqlSearch .=  "AND `Username`='".$_SESSION['username']."'";
 	}
 
@@ -47,14 +48,7 @@
 	$querySearch = $conn->query($sqlSearch) or die("failed!");
 	$databasedataSearch = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 	
-	echo 
-	"
-	<style>
-	td {border: 1px solid black; padding: 3px;}
-	th {border: 1px solid black; padding: 3px; background-color: gray;}
-	</style>
-	";
-	
+	echo '<div class="form">';
 	echo '<table>';
 	echo 
 	'<tr>
@@ -84,6 +78,7 @@
 	
 	echo 
 	"<button><a href='./mainPage.html'>Return to menu</a></button>";
+	echo '</div>';
 	
 	/*
 	echo
