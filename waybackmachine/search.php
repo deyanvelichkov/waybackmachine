@@ -1,5 +1,5 @@
 <?php
-	$host = "localhost";
+	$host = 'localhost';
 	$dbname = "waybackmachine";
 	$root = "root";
 	$pass = "";
@@ -48,7 +48,7 @@
 		$sqlSearch .=  "AND `Username`='".$_SESSION['username']."'";
 	}
 
-	$conn = new PDO('mysql:host=$host;dbname=$dbname', '$root', '$pass');
+	$conn = new PDO('mysql:host='.$host.';dbname='.$dbname.'', ''.$root.'', ''.$pass.'');
 	$querySearch = $conn->query($sqlSearch) or die("failed!");
 	$databasedataSearch = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 	
@@ -74,8 +74,8 @@
 			<td>'.$data['WebsiteTitle'].'</td>
 			<td>'.$data['LastUpdated'].'</td>
 			<td>'.$data['Username'].'</td>
-			<td><button><a href="/waybackmachine/waybackmachine/machine.php?address='.$data["Address"].'&title='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode=view" >View</a></button></td>
-			<td><button><a href="/waybackmachine/waybackmachine/machine.php?address='.$data["Address"].'&title='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode=download" >Download</a></button></td>
+			<td><button><a href="./machine.php?address='.$data["Address"].'&title='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode=view" >View</a></button></td>
+			<td><button><a href="./machine.php?address='.$data["Address"].'&title='.$data["WebsiteTitle"].'&date='.$data["LastUpdated"].'&mode=download" >Download</a></button></td>
 		</tr>';
 	}
 	echo '</table>';

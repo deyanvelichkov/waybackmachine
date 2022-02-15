@@ -7,16 +7,16 @@ $root = "root";
 $root_password = "";
 $dbname= "waybackmachine";
 try {
-    $dbh = new PDO("mysql:host=$host", $root, $root_password);
+    $dbh = new PDO("mysql:host=".$host.";", "".$root."", "".$root_password."");
 
-    $dbh->exec("CREATE DATABASE `waybackmachine`;")
+    $dbh->exec("CREATE DATABASE `$dbname`;")
     or die(print_r($dbh->errorInfo(), true));
 }
 catch (PDOException $e) {
     die("DB ERROR: " . $e->getMessage());
 }
 
-$conn = new PDO('mysql:host=$host;dbname=$dbname', '$root', '$root_password', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+$conn = new PDO('mysql:host='.$host.';dbname='.$dbname.'', ''.$root.'', ''.$root_password.'', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 $sql = "CREATE TABLE `websitedata` (
   `ID` int(11) NOT NULL,

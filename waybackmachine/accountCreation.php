@@ -8,7 +8,7 @@
 	<link rel='icon' type'image/x-icon' href='./favicon.ico'>
 	";
 
-	$conn = new PDO('mysql:host=$host;dbname=$dbname', '$root', '$pass');
+	$conn = new PDO('mysql:host='.$host.';dbname='.$dbname.'', ''.$root.'', ''.$pass.'');
 	
 	$username = $_POST['username'];
 	$password = $_POST['password'];
