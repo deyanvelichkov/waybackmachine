@@ -1,4 +1,8 @@
 <?php
+	$host = "localhost";
+	$dbname = "waybackmachine";
+	$root = "root";
+	$pass = "";
 	session_start();
 	error_reporting(E_ALL ^ E_WARNING);
 	echo 
@@ -22,7 +26,7 @@
 	}
 	else $saved_location_1 = "./saved/$address.html";
 
-	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
+	$conn = new PDO('mysql:host=$host;dbname=$dbname', '$root', '$pass');
 	
 	if ($date == "") {
 		$sqlSelect_find_to_process_count = "SELECT COUNT(*) FROM `websitedata` WHERE `Address`=\"$address\" OR `WebsiteTitle`=\"$title\" ORDER BY `LastUpdated` DESC LIMIT 1";

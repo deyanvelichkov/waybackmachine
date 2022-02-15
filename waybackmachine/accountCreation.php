@@ -1,11 +1,14 @@
 <?php
-
+	$host = "localhost";
+	$dbname = "waybackmachine";
+	$root = "root";
+	$pass = "";
 	echo
 	"
 	<link rel='icon' type'image/x-icon' href='./favicon.ico'>
 	";
 
-	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
+	$conn = new PDO('mysql:host=$host;dbname=$dbname', '$root', '$pass');
 	
 	$username = $_POST['username'];
 	$password = $_POST['password'];

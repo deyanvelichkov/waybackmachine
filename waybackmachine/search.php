@@ -1,4 +1,8 @@
 <?php
+	$host = "localhost";
+	$dbname = "waybackmachine";
+	$root = "root";
+	$pass = "";
 	session_start();
 	error_reporting(E_ALL ^ E_WARNING);
 	
@@ -44,7 +48,7 @@
 		$sqlSearch .=  "AND `Username`='".$_SESSION['username']."'";
 	}
 
-	$conn = new PDO('mysql:host=localhost;dbname=waybackmachine', 'root', '');
+	$conn = new PDO('mysql:host=$host;dbname=$dbname', '$root', '$pass');
 	$querySearch = $conn->query($sqlSearch) or die("failed!");
 	$databasedataSearch = $querySearch->fetchAll(PDO::FETCH_ASSOC);
 	
